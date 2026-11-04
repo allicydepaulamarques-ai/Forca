@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adivinhe a Palavra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">❓</span>
+          <div>
+            <p class="eyebrow">Jogo de palavras</p>
+            <h1>ADIVINHE A PALAVRA</h1>
+          </div>
+        </div>
+
+        <div class="stats-panel panel">
+          <h2>Estatísticas</h2>
+          <div id="stats-summary" class="stats-grid"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Histórico</h2>
+          <ul id="history-list" class="history-list"></ul>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section id="home-screen" class="screen active">
+          <div class="hero">
+            <div>
+              <p class="eyebrow accent">Modo clássico</p>
+              <h2>Escolha categoria e dificuldade</h2>
+            </div>
+            <button id="new-game-btn" class="primary-btn">Nova partida</button>
+          </div>
+
+          <div class="config-block panel">
+            <h3>Dificuldade</h3>
+            <div id="difficulty-buttons" class="segmented"></div>
+          </div>
+
+          <div class="config-block panel">
+            <h3>Categorias</h3>
+            <div id="category-grid" class="category-grid"></div>
+          </div>
+        </section>
+
+        <section id="game-screen" class="screen">
+          <div class="topbar">
+            <div>
+              <p id="current-category" class="eyebrow accent">Categoria</p>
+              <h2 id="game-title">Adivinhe a palavra</h2>
+            </div>
+            <div class="score-box">
+              <span>Pontos</span>
+              <strong id="score-display">0</strong>
+            </div>
+          </div>
+
+          <div class="game-layout">
+            <div class="hangman-panel panel">
+              <div id="hangman" class="hangman" aria-label="Forca">
+                <div class="gallows"></div>
+                <div class="part head"></div>
+                <div class="part body"></div>
+                <div class="part arm left"></div>
+                <div class="part arm right"></div>
+                <div class="part leg left"></div>
+                <div class="part leg right"></div>
+              </div>
+            </div>
+
+            <div class="play-panel panel">
+              <div class="info-row">
+                <span id="attempts-display" class="attempts-label">Tentativas: 6</span>
+                <span id="difficulty-label" class="difficulty-badge">Fácil</span>
+              </div>
+
+              <div id="word-display" class="word-display" aria-live="polite"></div>
+
+              <div class="hint-box">
+                <span class="hint-label">Dica</span>
+                <p id="hint-text">Escolha uma categoria para iniciar.</p>
+              </div>
+
+              <div id="message" class="message" aria-live="polite"></div>
+              <div id="keyboard" class="keyboard" aria-label="Teclado virtual"></div>
+
+              <div class="controls-row">
+                <button id="new-round-btn" class="secondary-btn">Nova rodada</button>
+                <button id="back-home-btn" class="ghost-btn">Voltar</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="result-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="result-title">
+      <div class="modal-card panel">
+        <p id="result-badge" class="eyebrow accent">Resultado</p>
+        <h3 id="result-title">Fim de jogo</h3>
+        <p id="result-message">A palavra era ...</p>
+        <div class="modal-actions">
+          <button id="play-again-btn" class="primary-btn">Jogar novamente</button>
+          <button id="menu-btn" class="ghost-btn">Escolher outra categoria</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
