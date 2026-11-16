@@ -1,5 +1,5 @@
-import { WORD_BANK } from './data/words.js';
-import { fetchWordDefinition, buildHint } from './services/dictionary.js';
+import { WORD_BANK } from './data/forcaData.js';
+import { getWordHintsList, hasSpecialHintsForWord } from './data/specialHints.js';
 
 const DIFFICULTY_RULES = {
   facil: { maxLength: 6, minLength: 3 },
@@ -48,14 +48,27 @@ export class HangmanGame {
 
   pickWord() {
     const rules = DIFFICULTY_RULES[this.difficulty] || DIFFICULTY_RULES.medio;
-    const pool = this.availableWords.filter((candidate) => {
+    const availableCandidates = this.availableWords.filter((candidate) => {
+      const normalized = normalizeLetter(candidate);
+      return !this.recentWords.includes(normalized);
+    });
+    const difficultyCandidates = availableCandidates.filter((candidate) => {
       const normalized = normalizeLetter(candidate);
       const lengthOk = normalized.length >= rules.minLength && normalized.length <= rules.maxLength;
-      const notUsed = !this.recentWords.includes(normalized);
-      return lengthOk && notUsed;
+      return lengthOk;
     });
 
-    const finalPool = pool.length ? pool : this.availableWords.filter((candidate) => !this.recentWords.includes(normalizeLetter(candidate)));
+    const hintedCandidates = availableCandidates.filter(hasSpecialHintsForWord);
+    const hintedDifficultyCandidates = difficultyCandidates.filter(hasSpecialHintsForWord);
+    const finalPool = hintedDifficultyCandidates.length
+      ? hintedDifficultyCandidates
+      : hintedCandidates.length
+        ? hintedCandidates
+        : difficultyCandidates.length
+          ? difficultyCandidates
+          : availableCandidates.length
+            ? availableCandidates
+            : this.availableWords;
     const chosen = finalPool[Math.floor(Math.random() * finalPool.length)] || this.availableWords[0];
     this.recentWords.push(normalizeLetter(chosen));
     this.recentWords = this.recentWords.slice(-12);
@@ -68,15 +81,9 @@ export class HangmanGame {
     this.wrongLetters = new Set();
     this.attemptsLeft = this.maxAttempts;
 
-    const result = await fetchWordDefinition(this.word);
-    const hintText = buildHint({
-      category: this.category,
-      difficulty: this.difficulty,
-      word: this.word,
-      definition: result?.definition || ''
-    });
+    this.hintStages = getWordHintsList(this.word, this.difficulty);
 
-    this.hint = hintText;
+    this.hint = this.hintStages[0];
     return {
       word: this.word,
       hint: this.hint,
@@ -84,6 +91,14 @@ export class HangmanGame {
       maxAttempts: this.maxAttempts,
       letters: this.getUniqueLetters(this.word)
     };
+  }
+
+  getHintForMistakeCount(mistakes = 0) {
+    const safeMistakes = Number.isFinite(mistakes) ? Math.max(0, Math.floor(mistakes)) : 0;
+    const index = Math.min(this.hintStages.length - 1, safeMistakes);
+    const nextHint = this.hintStages[index] || this.hintStages[0] || this.hint;
+    this.hint = `Dica ${index + 1} de ${this.hintStages.length}: ${nextHint}`;
+    return this.hint;
   }
 
   submitGuess(letter) {

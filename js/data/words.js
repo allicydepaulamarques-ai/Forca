@@ -1,23 +1,25 @@
-export const CATEGORY_META = [
-  { key: 'animais', label: 'Animais', icon: '🐾' },
-  { key: 'paises', label: 'Países', icon: '🌍' },
-  { key: 'cidades', label: 'Cidades', icon: '🏙️' },
-  { key: 'filmes', label: 'Filmes', icon: '🎬' },
-  { key: 'series', label: 'Séries', icon: '📺' },
-  { key: 'super-herois', label: 'Super-heróis', icon: '🦸' },
-  { key: 'jogos', label: 'Jogos', icon: '🎮' },
-  { key: 'esportes', label: 'Esportes', icon: '⚽' },
-  { key: 'comidas', label: 'Comidas', icon: '🍔' },
-  { key: 'profissoes', label: 'Profissões', icon: '🧑‍💼' },
-  { key: 'tecnologia', label: 'Tecnologia', icon: '💻' },
-  { key: 'historia', label: 'História', icon: '🏛️' },
-  { key: 'musica', label: 'Música', icon: '🎵' },
-  { key: 'biblia', label: 'Bíblia', icon: '📖' },
-  { key: 'conhecimentos-gerais', label: 'Conhecimentos gerais', icon: '🧠' },
-  { key: 'carros', label: 'Carros', icon: '🚗' },
-  { key: 'natureza', label: 'Natureza', icon: '🌿' },
-  { key: 'personalidades', label: 'Personalidades', icon: '⭐' }
-];
+import forcaData, {
+  CATEGORY_META,
+  CATEGORY_BY_KEY,
+  DIFFICULTY_LEVELS,
+  WORD_BANK,
+  ALL_WORDS,
+  GENERIC_HINTS,
+  WORD_HINTS
+} from './forcaData.js';
+
+export {
+  CATEGORY_META,
+  CATEGORY_BY_KEY,
+  DIFFICULTY_LEVELS,
+  WORD_BANK,
+  ALL_WORDS,
+  GENERIC_HINTS,
+  WORD_HINTS,
+  forcaData
+};
+
+export default forcaData;
 
 const baseWordMap = {
   animais: [
@@ -39,6 +41,12 @@ const baseWordMap = {
     'angola', 'arabe', 'azerbaijao', 'bolivia', 'camboja', 'chade', 'coreia do sul', 'dinamarca', 'etiopia',
     'finlandia', 'georgia', 'honduras', 'islandia', 'iran', 'iraque', 'jordania', 'kenia', 'libia', 'malasia',
     'mozambique', 'nepal', 'nova zelandia', 'paquistao', 'peru', 'portugal', 'siria', 'sudao', 'tanzania', 'uganda'
+  ],
+  'harry-potter': [
+    'harry potter', 'hogwarts', 'hedwig', 'dumbledore', 'ron weasley', 'hermione granger', 'snape', 'voldemort',
+    'sirius black', 'hagrid', 'neville longbottom', 'draco malfoy', 'minerva mcgonagall', 'luna lovegood',
+    'ginny weasley', 'albus dumbledore', 'mago', 'feitiço', 'escudo', 'basilisco', 'morgana', 'gringotes',
+    'azkaban', 'quem quer ser um bruxo', 'fawkes', 'casa de hogwarts', 'fenix', 'transformacao'
   ],
   cidades: [
     'abidjan', 'amsterda', 'atenas', 'bagda', 'barcelona', 'beijing', 'berlim', 'bogota', 'buenos aires', 'cairo',
@@ -158,6 +166,11 @@ const extraWordMap = {
     'taiwan', 'trinidad', 'turquia', 'uzbequistao', 'zimbabue', 'belarus', 'angola', 'cabo verde', 'slovakia', 'emirados arabes',
     'eslovaquia', 'catar', 'bulgaria', 'laos', 'mianmar', 'guiana', 'equador', 'nicaragua', 'paraguai', 'moçambique',
     'burkina faso', 'andorra', 'sérvia', 'cazaquistao', 'kazajstan', 'anguila', 'noruega', 'grécia', 'sudão', 'gana'
+  ],
+  'harry-potter': [
+    'hogwarts', 'hedwig', 'muggle', 'gringotes', 'gryffindor', 'slytherin', 'ravenclaw', 'hufflepuff', 'squib',
+    'dolores umbridge', 'cho chang', 'cedric diggory', 'bellatrix', 'quidditch', 'patrono', 'felix felicis',
+    'potion', 'cavalo', 'varinha', 'maldicao', 'horcrux', 'wand', 'owl', 'fenix', 'basilisco'
   ],
   cidades: [
     'salvador', 'porto', 'amsterdã', 'berna', 'birmingham', 'cancun', 'delhi', 'dubrovnik', 'firenze', 'genova',

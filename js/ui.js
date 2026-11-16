@@ -1,4 +1,4 @@
-import { CATEGORY_META } from './data/words.js';
+import { CATEGORY_META } from './data/forcaData.js';
 
 export class GameUI {
   constructor({ onCategoryChange, onDifficultyChange, onNewRound, onGuess, onBackHome, onPlayAgain }) {

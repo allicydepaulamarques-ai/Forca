@@ -101,6 +101,31 @@ const difficultyPrefix = {
 };
 
 const SPECIAL_HINTS = {
+  brasil: {
+    facil: 'É o país que abriga a maior floresta tropical do mundo e também uma das maiores seleções de futebol da história.',
+    medio: 'É uma nação da América do Sul famosa pelo futebol, pela música popular e pela diversidade cultural.',
+    dificil: 'É o maior país da América do Sul, conhecido por sua extensão territorial, pela cultura rica e por cidades como Rio e São Paulo.'
+  },
+  frança: {
+    facil: 'É um país europeu conhecido pela Torre Eiffel, pela capital Paris e pela moda internacional.',
+    medio: 'É uma nação que concentra arte, cultura e história em cidades como Paris, Lyon e Marselha.',
+    dificil: 'É um país europeu de grande influência cultural, famoso por Paris, pela gastronomia e por sua rica história.'
+  },
+  japao: {
+    facil: 'É um país insular do leste da Ásia conhecido por tecnologia, cultura e cidades muito modernas.',
+    medio: 'É um arquipélago conhecido pela fusão entre tradição milenar e inovação tecnológica muito avançada.',
+    dificil: 'É um dos países mais desenvolvidos do mundo, famoso por Tokyo, tecnologia, anime e uma cultura muito rica e antiga.'
+  },
+  italia: {
+    facil: 'É um país europeu famoso por Roma, pela pizza, pela pasta e por monumentos antigos.',
+    medio: 'É uma nação muito ligada à arte, à história antiga e à culinária, com Roma como símbolo principal.',
+    dificil: 'É um país da Europa meridional, conhecido por monumentos históricos, cidades como Roma, Florença e Veneza e por sua tradição culinária.'
+  },
+  argentina: {
+    facil: 'É um país da América do Sul muito famoso por futebol, tango e personalidades como Maradona.',
+    medio: 'É uma nação sul-americana conhecida pelo futebol, pelo tango e pela cidade de Buenos Aires.',
+    dificil: 'É um país da América do Sul que se destaca no futebol, na música e na cultura latino-americana.',
+  },
   titanic: {
     facil: 'Uma jovem da alta sociedade se apaixona durante uma viagem em um navio luxuoso que termina em tragédia marítima.',
     medio: 'O romance entre Jack e Rose acontece a bordo do famoso navio que virou símbolo de uma catástrofe histórica.',
@@ -137,9 +162,69 @@ const SPECIAL_HINTS = {
     dificil: 'A trama se passa no planeta Pandora e explora a relação entre exploração humana, biodiversidade e a luta por sobrevivência dos Na’vi.'
   },
   'harry potter': {
-    facil: 'O protagonista é um menino que descobre que é um bruxo e entra em um mundo mágico cheio de mistérios.',
-    medio: 'A história acompanha Harry desde a escola de magia até a batalha contra forças sombrias que ameaçam o mundo bruxo.',
-    dificil: 'O protagonista cresce em um universo de magia, feitiços, criaturas fantásticas e uma luta contra o maior vilão do mundo bruxo.'
+    facil: 'É o protagonista da história: um garoto órfão que descobre ser bruxo, entra em Hogwarts e vive aventuras ao lado de Ron e Hermione.',
+    medio: 'É o nome do protagonista que cresceu sem conhecer os pais, estudou em Hogwarts e enfrentou desafios junto de Ron, Hermione e o professor Dumbledore.',
+    dificil: 'É o nome do garoto que foi criado por tios cruéis, descobriu ser bruxo, viveu a infância em Hogwarts e enfrentou Voldemort em uma guerra de grande risco para o mundo mágico.'
+  },
+  hogwarts: {
+    facil: 'É a escola de magia onde Harry, Ron e Hermione estudam, aprendem feitiços e vivem grandes aventuras entre casas e mistérios.',
+    medio: 'É o castelo principal da saga, onde os bruxos aprendem poções, feitiços e enfrentam desafios emocionais, sociais e perigosos em cada ano letivo.',
+    dificil: 'É a escola de magia e bruxaria centrada na saga, lar das casas Grifinória, Sonserina, Lufa-Lufa e Corvinal, palco de mistérios, rivalidades e batalhas decisivas.'
+  },
+  hedwig: {
+    facil: 'É a coruja branca de Harry Potter, companheira fiel que o auxilia em mensagens, viagens e momentos de tensão.',
+    medio: 'É a ave que acompanha Harry desde sua infância em Hogwarts, funcionando como mensageira e fiel companhia em momentos de risco e emoção.',
+    dificil: 'É a coruja que representa apoio e proteção em Harry Potter, sendo uma presença constante em sua jornada e uma das marcas mais reconhecíveis do protagonista.'
+  },
+  'ron weasley': {
+    facil: 'É o melhor amigo de Harry, conhecido por sua família grande e por ser muito leal.',
+    medio: 'É o amigo de Harry que cresceu em uma família de bruxos e compartilha com ele muitos momentos difíceis e emocionantes.',
+    dificil: 'É o irmão mais jovem de uma família numerosa de bruxos, companheiro fiel de Harry e Hermione e grande aliado em diversos desafios.'
+  },
+  'hermione granger': {
+    facil: 'É a amiga muito inteligente de Harry, sempre preparada e estudiosa.',
+    medio: 'É a personagem brilhante que combina inteligência, coragem e dedicação, sendo fundamental para muitas soluções.',
+    dificil: 'É a amiga de Harry e Ron, conhecida por sua inteligência, pelo estudo incansável e por ajudar o grupo em momentos decisivos.'
+  },
+  'voldemort': {
+    facil: 'É o vilão principal da história, conhecido por ser um bruxo muito poderoso e temido.',
+    medio: 'É o nome do bruxo que busca poder absoluto e provoca medo em todo o mundo mágico.',
+    dificil: 'É o maior antagonista da saga, um bruxo que representa medo, ambição e perigo para todos os personagens.'
+  },
+  dumbledore: {
+    facil: 'É o diretor da escola de Hogwarts e uma figura muito sábia.',
+    medio: 'É o professor e diretor de Hogwarts, conhecido por sua grande sabedoria e por orientar Harry em momentos críticos.',
+    dificil: 'É o mestre de Hogwarts, um dos bruxos mais respeitados da história e um mentor fundamental para Harry.'
+  },
+  'sirius black': {
+    facil: 'É um personagem ligado ao passado de Harry e que vive uma história intensa de fuga e lealdade.',
+    medio: 'É um dos personagens mais importantes da trama, conhecido por sua ligação com Harry e por viver uma história marcada por injustiça.',
+    dificil: 'É um bruxo que se torna amigo de Harry e tem um papel muito emocional na história, ligado à família e à memória de seu pai.'
+  },
+  hagrid: {
+    facil: 'É um personagem gigante, amigável e muito ligado aos animais fantásticos.',
+    medio: 'É o guardião dos animais mágicos e um dos personagens mais carinhosos da história.',
+    dificil: 'É o professor e guarda de criaturas mágicas da escola, amado por sua forma tranquila e por sua ligação com a natureza fantástica.'
+  },
+  muggle: {
+    facil: 'É a palavra usada para pessoas comuns, sem magia.',
+    medio: 'É um termo para quem não nasceu em um mundo bruxo e vive entre pessoas normais.',
+    dificil: 'É a expressão usada para designar pessoas comuns, sem poderes mágicos, em contraste com os bruxos.'
+  },
+  quidditch: {
+    facil: 'É o esporte mais famoso do mundo bruxo, jogado com vassouras no ar.',
+    medio: 'É o esporte mágico praticado por bruxos e bruxas, com bolas e arremates muito diferentes do futebol.',
+    dificil: 'É o jogo mais conhecido do universo mágico, disputado em vassouras e marcado por agilidade, estratégia e velocidade.'
+  },
+  azkaban: {
+    facil: 'É a prisão dos bruxos, um lugar temido e de difícil fuga.',
+    medio: 'É a prisão mágica mais temida do mundo bruxo, conhecida por sua atmosfera sombria e severidade.',
+    dificil: 'É o lugar de encarceramento dos bruxos mais perigosos, transformado em símbolo de medo e punição.'
+  },
+  gringotes: {
+    facil: 'É o banco dos bruxos, onde se guarda dinheiro e objetos valiosos.',
+    medio: 'É o nome do banco mágico usado por bruxos para guardar riquezas e preservar tesouros importantes.',
+    dificil: 'É a instituição financeira do mundo bruxo, conhecida por sua segurança e por guardar bens valiosos.'
   },
   'toy story': {
     facil: 'Os personagens são brinquedos que vivem uma rotina de convivência e têm sentimentos muito parecidos com os de pessoas.',
@@ -509,6 +594,11 @@ const categoryShapes = {
     'Esse nome pode remeter a uma nação com história, cidades e tradições próprias.',
     'Pense em um território reconhecido internacionalmente, com governo e população.'
   ],
+  'harry-potter': [
+    'Esse nome remete ao universo mágico de Hogwarts, feitiçaria e aventureiros bruxos.',
+    'Pense em personagens, varinhas, criaturas fantásticas e a escola de magia mais famosa do mundo.',
+    'É um tema ligado a magia, mistério, amizade e desafios enfrentados em um mundo encantado.'
+  ],
   cidades: [
     'Esse nome costuma levar à lembrança de ruas, monumentos e muita gente circulando.',
     'Ele pode ser uma capital ou uma cidade grande, conhecida por sua história ou paisagem.',
@@ -603,12 +693,18 @@ const buildDefinitionHint = (definition = '', category, difficulty) => {
 
   if (!cleaned) return '';
 
-  const phrase = cleaned.split(' ').slice(0, 12).join(' ');
+  const phrase = cleaned.split(' ').slice(0, 18).join(' ');
   if (!phrase) return '';
 
-  const categoryBase = categoryShapes[category]?.[0] || 'Pense em um detalhe marcante dessa categoria.';
   const prefix = difficultyPrefix[difficulty] || 'Dica: ';
-  return `${prefix}${categoryBase} A ideia também lembra ${phrase.toLowerCase()}.`;
+
+  const extraContext = category === 'harry-potter'
+    ? 'No universo de Harry Potter, essa palavra costuma aparecer em relações, amizades, mistérios e situações de perigo dentro da escola e do mundo bruxo.'
+    : category === 'paises'
+      ? 'Essa palavra se refere a um país real, com território, cultura, capital, história e identidade própria no mapa mundial.'
+      : 'Pense em um detalhe concreto dessa categoria: a palavra aparece em um contexto específico, em uma relação importante, em um momento marcante ou em uma característica muito reconhecível.';
+
+  return `${prefix}${extraContext} O contexto mais forte dela é ${phrase.toLowerCase()}.`;
 };
 
 export const buildHint = ({ category, difficulty = 'medio', word = '', definition = '' }) => {
@@ -625,9 +721,15 @@ export const buildHint = ({ category, difficulty = 'medio', word = '', definitio
   }
 
   const categoryHints = categoryShapes[category] || categoryShapes.animais;
+  const fallbackContext = category === 'harry-potter'
+    ? 'Pense em Hogwarts, em personagens como Harry, Ron e Hermione, em feitiços, criaturas mágicas, amizades, rivalidades e os momentos mais marcantes da saga.'
+    : category === 'paises'
+      ? 'Pense em um país real com cultura própria, capital, território, história, clima e características muito marcantes do lugar.'
+      : `${difficultyPrefix[difficulty] || 'Dica: '}${categoryHints[Math.abs(cleanWord.length) % categoryHints.length]}`;
+
   const baseHint = definition
     ? buildDefinitionHint(definition, category, difficulty)
-    : `${difficultyPrefix[difficulty] || 'Dica: '}${categoryHints[Math.abs(cleanWord.length) % categoryHints.length]}`;
+    : fallbackContext;
 
   return baseHint.length > 220 ? `${baseHint.slice(0, 210)}...` : baseHint;
 };

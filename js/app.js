@@ -65,7 +65,7 @@ async function startRound() {
   ui.renderGameStatus({
     attemptsLeft: round.attemptsLeft,
     difficulty: state.difficulty,
-    hint: round.hint
+    hint: game.getHintForMistakeCount(0)
   });
   ui.renderHangman(0);
   ui.setMessage('');
@@ -124,6 +124,13 @@ function handleGuess(letter) {
     state.wrongLetters.add(normalized);
     ui.setMessage(`A letra "${normalized.toUpperCase()}" não está na palavra.`, 'error');
     ui.renderHangman(state.wrongLetters.size);
+
+    const evolvedHint = game.getHintForMistakeCount(state.wrongLetters.size);
+    ui.renderGameStatus({
+      attemptsLeft: game.attemptsLeft,
+      difficulty: state.difficulty,
+      hint: evolvedHint
+    });
   }
 
   ui.renderKeyboard(state.usedLetters, state.correctLetters, state.wrongLetters);
