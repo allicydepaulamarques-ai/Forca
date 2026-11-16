@@ -1,5 +1,5 @@
 import { WORD_BANK } from './data/forcaData.js';
-import { fetchWordDefinition, buildHint } from './services/dictionary.js';
+import { getWordHintsList, hasSpecialHintsForWord } from './data/specialHints.js';
 
 const DIFFICULTY_RULES = {
   facil: { maxLength: 6, minLength: 3 },
@@ -48,14 +48,27 @@ export class HangmanGame {
 
   pickWord() {
     const rules = DIFFICULTY_RULES[this.difficulty] || DIFFICULTY_RULES.medio;
-    const pool = this.availableWords.filter((candidate) => {
+    const availableCandidates = this.availableWords.filter((candidate) => {
+      const normalized = normalizeLetter(candidate);
+      return !this.recentWords.includes(normalized);
+    });
+    const difficultyCandidates = availableCandidates.filter((candidate) => {
       const normalized = normalizeLetter(candidate);
       const lengthOk = normalized.length >= rules.minLength && normalized.length <= rules.maxLength;
-      const notUsed = !this.recentWords.includes(normalized);
-      return lengthOk && notUsed;
+      return lengthOk;
     });
 
-    const finalPool = pool.length ? pool : this.availableWords.filter((candidate) => !this.recentWords.includes(normalizeLetter(candidate)));
+    const hintedCandidates = availableCandidates.filter(hasSpecialHintsForWord);
+    const hintedDifficultyCandidates = difficultyCandidates.filter(hasSpecialHintsForWord);
+    const finalPool = hintedDifficultyCandidates.length
+      ? hintedDifficultyCandidates
+      : hintedCandidates.length
+        ? hintedCandidates
+        : difficultyCandidates.length
+          ? difficultyCandidates
+          : availableCandidates.length
+            ? availableCandidates
+            : this.availableWords;
     const chosen = finalPool[Math.floor(Math.random() * finalPool.length)] || this.availableWords[0];
     this.recentWords.push(normalizeLetter(chosen));
     this.recentWords = this.recentWords.slice(-12);
@@ -68,27 +81,7 @@ export class HangmanGame {
     this.wrongLetters = new Set();
     this.attemptsLeft = this.maxAttempts;
 
-    const result = await fetchWordDefinition(this.word);
-    const baseHint = buildHint({
-      category: this.category,
-      difficulty: this.difficulty,
-      word: this.word,
-      definition: result?.definition || ''
-    });
-
-    const categoryLabel = this.category.replace(/-/g, ' ');
-    const semanticHint = this.category === 'harry-potter'
-      ? 'Pense no universo mágico de Hogwarts, bruxos, magia, criaturas fantásticas e aventuras da escola de feitiçaria.'
-      : this.category === 'paises'
-        ? 'Pense em um país real, com território, cultura, governo e identidade própria no mundo.'
-        : `Pense no significado da palavra dentro do tema de ${categoryLabel} e em sua relação com o contexto cultural ou real dessa categoria.`;
-
-    this.hintStages = [
-      baseHint,
-      `Ainda estamos no tema de ${categoryLabel}. ${semanticHint}`,
-      `A próxima pista é sobre o conceito: pense na ideia, no significado e na referência dessa palavra dentro de ${categoryLabel}.`,
-      `Última dica: a resposta não depende de como a palavra se escreve, e sim do que ela representa dentro do tema de ${categoryLabel}.`
-    ].filter(Boolean);
+    this.hintStages = getWordHintsList(this.word, this.difficulty);
 
     this.hint = this.hintStages[0];
     return {
@@ -101,11 +94,11 @@ export class HangmanGame {
   }
 
   getHintForMistakeCount(mistakes = 0) {
-    const safeMistakes = Number.isFinite(mistakes) ? Math.max(0, mistakes) : 0;
+    const safeMistakes = Number.isFinite(mistakes) ? Math.max(0, Math.floor(mistakes)) : 0;
     const index = Math.min(this.hintStages.length - 1, safeMistakes);
     const nextHint = this.hintStages[index] || this.hintStages[0] || this.hint;
-    this.hint = nextHint;
-    return nextHint;
+    this.hint = `Dica ${index + 1} de ${this.hintStages.length}: ${nextHint}`;
+    return this.hint;
   }
 
   submitGuess(letter) {
